@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="Refresh"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Help"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="About"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Sign Out"
+        app:showAsAction="never"/>
+
+</menu>
