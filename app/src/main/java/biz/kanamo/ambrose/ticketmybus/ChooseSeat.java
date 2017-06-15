@@ -4,15 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -32,9 +34,9 @@ public class ChooseSeat extends AppCompatActivity {
     ArrayList<SeatModel> seatModels = new ArrayList<>();
     Intent intentFrom;
     SeatModel seat;
-    private int _seat;
     int[] bookedSeats;
     ProgressDialog progressDialog;
+    private int _seat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class ChooseSeat extends AppCompatActivity {
         Intent intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("number_plate"));
         seats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -63,11 +65,18 @@ public class ChooseSeat extends AppCompatActivity {
                 seat = seatModels.get(position);
                 _seat = seat.getSeatNumber();
 
-                /*View _view = parent.getChildAt(position);
-                TextView seat_view = (TextView) _view.findViewById(R.id.seatx);
+                TextView seat_view = (TextView) parent.getChildAt(position).findViewById(R.id.seatx);
                 if (seat_view != null){
-                    seat_view.setBackgroundResource(R.drawable.seat_booked);
-                }*/
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (seat_view.getBackground().getConstantState() == getResources().getDrawable(R.drawable.seat_booked, getTheme()).getConstantState()) {
+                            Toast.makeText(ChooseSeat.this, "Seat already booked. choose another free one.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    } else {
+                        Toast.makeText(ChooseSeat.this, "Please use android version 5.0 and above for the best experience", Toast.LENGTH_SHORT).show();
+                    }
+                    seat_view.setBackgroundResource(R.drawable.seat_reserved);
+                }
 
                 Snackbar.make(view, "Seat No: "+seat.getSeatNumber(), Snackbar.LENGTH_INDEFINITE)
                         .setAction("Continue", new View.OnClickListener() {
@@ -159,13 +168,14 @@ public class ChooseSeat extends AppCompatActivity {
 
     public class OkHttpHandler extends AsyncTask<String, String, String> {
 
+        OkHttpClient client = new OkHttpClient();
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog.show();
         }
 
-        OkHttpClient client = new OkHttpClient();
         @Override
         protected String doInBackground(String... params) {
             Request request = new Request.Builder()

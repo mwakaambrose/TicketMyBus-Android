@@ -30,15 +30,13 @@ public class Home extends AppCompatActivity {
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseUser mFirebaseUser;
     public static final String ANONYMOUS = "anonymous";
-    private String mUsername;
-    private String mPhotoUrl;
     DigitsSession digitSession;
-
-    private TextView mTextMessage;
     ListView schedulesView;
     ScheduleAdapter scheduleAdapter;
     ArrayList<ScheduleModel> scheduleModels = new ArrayList<>();
-
+    private String mUsername;
+    private String mPhotoUrl;
+    private TextView mTextMessage;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -52,7 +50,7 @@ public class Home extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), Terminals.class));
                     return true;
                 case R.id.navigation_notifications:
-                    startActivity(new Intent(getApplicationContext(), Help.class));
+                    startActivity(new Intent(getApplicationContext(), BookingHistory.class));
                     return true;
             }
             return false;

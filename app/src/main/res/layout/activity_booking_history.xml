@@ -7,36 +7,8 @@
     android:padding="10dp"
     tools:context="biz.kanamo.ambrose.ticketmybus.BookingHistory">
 
-    <android.support.v7.widget.CardView
+    <ListView
+        android:id="@+id/book_history_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="If you are seeing this, it means your booking request was successfully sent."/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/black"/>
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="Success!"
-                android:layout_marginBottom="5dp"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        android:layout_height="wrap_content"></ListView>
 </RelativeLayout>
